@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewBag.Title = "BlogPost";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Breadcrumbs-->
+<section class="section-height-800 breadcrumb-modern parallax-container context-dark bg-gray-darkest d-none d-lg-block" data-parallax-img="@ViewBag.Banner.Image">
+    <div class="parallax-content">
+        <div class="bg-overlay-darker">
+            <div class="container-wide section-34 section-md-60 section-lg-top-130 section-lg-bottom-155">
+                <div class="d-none d-lg-block">
+                    <div class="h1 breadcrumbs-custom-title">@ViewBag.Banner.description</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section-34 bg-selago">
+    <div class="container">
+        <ul class="list-inline list-inline-12 list-inline-icon breadcrumbs-list">
+            <li><a href="/">Home</a></li>
+            <li><a href="@Url.Action("BlogClassic","Blog")">Blog</a></li>
+            <li class="active">Blog Post</li>
+        </ul>
+    </div>
+</section>
+<div class="page-content section-90 section-md-120">
+    <!-- Blog Post-->
+    <div id="fb-root"></div>
+    <section class="text-left">
+        <div class="inset-xl-left-45 inset-xl-right-45 inset-xxl-left-130 inset-xxl-right-85">
+            <div class="container-wide container-wide-custom">
+                <div class="row justify-content-sm-center justify-content-xl-end justify-content-xxl-between">
+                    <div class="col-md-10 col-lg-8 col-xxl-7">
+                        <div class="inset-lg-right-35 inset-xxl-right-0">
+                            <h3 class="text-primary">@ViewBag.BlogSingle.Title</h3>
+                            <ul class="list list-inline list-inline-dashed list-inline-20 text-gray-lighter offset-top-20">
+                                <li>@ViewBag.BlogSingle.BlogTime.ToString("dd/MM/yyyy")</li>
+                            </ul>
+                            @Html.Raw(ViewBag.BlogSingle.Content);
+                        </div>
+                    </div>
+                    <div class="col-md-10 col-lg-4 offset-top-90 offset-lg-top-0">
+                        <div class="inset-lg-left-30">
+                            <!-- Aside-->
+                            <aside class="text-left inset-xxl-right-50">
+                                <!-- Search the Blog-->
+                                <hr class="divider hr-left-0 bg-bermuda">
+                                <h5 class="offset-top-15">Search the Blog</h5>
+                                <div class="offset-top-25 rd-search-blog">
+                                    <!-- RD Search Form-->
+                                    <form class="search-form-1 form-search form-search-blog rd-search" action="@Url.Action("BlogClassic","Blog")" method="GET">
+                                        <div class="form-wrap">
+                                            <label class="form-label form-search-label" for="blog-classic-form-search-widget">Search...</label>
+                                            <input class="form-input form-search-input form-control null" id="blog-classic-form-search-widget" type="text" name="SearchString" autocomplete="off">
+                                        </div>
+                                        <div class="form-button">
+                                            <button class="btn btn-primary form-search-submit" type="submit">search</button>
+                                        </div>
+                                    </form>
+                                </div>
+        
+                                <!-- Categories-->
+                                <div class="offset-top-60 offset-lg-top-90">
+                                    <hr class="divider hr-left-0 bg-bermuda">
+                                    <h5 class="offset-top-15">Categories</h5>
+                                </div>
+                                <div class="offset-top-30">
+                                    <div class="inset-sm-left-8">
+                                        <!-- List Marked-->
+                                        <ul class="list list-marked list-marked-icon">
+                                            @foreach (var item in ViewBag.Category)
+                                            {
+                                                <li><a class="text-primary" href="@Url.Action("BlogClassic","Blog",new { cate = item.Cate_blog_id })">@item.name</a></li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+          
+                            </aside>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+

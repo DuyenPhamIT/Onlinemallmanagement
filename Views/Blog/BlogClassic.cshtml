@@ -1,0 +1,185 @@
+﻿@model IEnumerable<OnlineMallManagement.Models.Blog>
+@{
+    ViewBag.Title = "Blog Classic";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section MovieCss{
+    <style>
+        .pagination-classic > li:first-child a {
+            pointer-events: inherit !important;
+            background: #79d5ca !important;
+            border-color: #79d5ca !important;
+        }
+
+        .pagination-classic > li a.icon-default,
+        .pagination-classic > li a.icon-default:hover {
+            color: #b6b6b6 !important;
+            background: #f3f3f3 !important;
+            border-color: #f3f3f3 !important;
+        }
+
+        .pagination-classic > li a:hover {
+            color: #fff;
+            background: #764ebe !important;
+            border-color: #764ebe !important;
+        }
+    </style>
+}
+<!-- Breadcrumbs-->
+<section class="section-height-800 breadcrumb-modern parallax-container context-dark bg-gray-darkest d-none d-lg-block" data-parallax-img="@ViewBag.Banner.Image">
+    <div class="parallax-content">
+        <div class="bg-overlay-darker">
+            <div class="container-wide section-34 section-md-60 section-lg-top-130 section-lg-bottom-155">
+                <div class="d-none d-lg-block">
+                    <div class="h1 breadcrumbs-custom-title">@ViewBag.Banner.description</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section-34 bg-selago">
+    <div class="container">
+        <ul class="list-inline list-inline-12 list-inline-icon breadcrumbs-list">
+            <li><a href="/">Home</a></li>
+            <li><a href="@Url.Action("BlogClassic","Blog")">Blog</a></li>
+            <li class="active">Blog Classic</li>
+        </ul>
+    </div>
+</section>
+<!-- Page Content-->
+<div class="page-content section-80 section-md-120">
+    <!-- News Classic-->
+    <div id="fb-root"></div>
+    <section class="text-left">
+        <div class="inset-xl-left-45 inset-xl-right-45 inset-xxl-left-130 inset-xxl-right-85">
+            <div class="container-wide container-wide-custom">
+                <div class="row justify-content-sm-center justify-content-xl-end justify-content-xxl-between">
+                    <div class="col-md-10 col-lg-8 col-xxl-7">
+                        <div class="inset-lg-right-35 inset-xxl-right-0">
+
+                            @foreach (var item in Model)
+                            {
+                                <div class="offset-top-75">
+                                    <!-- Post Classic-->
+                                    <article class="post post-classic">
+                                        <!-- Post media-->
+                                        <header class="post-media">
+                                            <a class="thumbnail-classic" href="@Url.Action("BlogPost","Blog",new { id = item.BlogId })" target="_self">
+                                                <figure><img width="960" height="550" src="@item.Images" alt="photo"></figure>
+                                            </a>
+                                        </header>
+                                        <!-- Post Title-->
+                                        <div class="post-title offset-top-30">
+                                            <h3><a href="@Url.Action("BlogPost","Blog",new { id = item.BlogId })">@item.Title!</a></h3>
+                                        </div>
+                                        <!-- Post content-->
+                                        <section class="post-content text-left offset-top-5">
+                                            <ul class="list list-inline list-inline-dashed list-inline-20 text-gray-lighter">
+                                                <li>@item.BlogTime.Value.ToString("dd/MM/yyyy")</li>
+                                            </ul>
+                                            <!-- Post Body-->
+                                            <div class="post-body offset-top-20">
+                                                <p>@item.Description</p>
+                                                <div class="offset-top-30"><a class="btn btn-width-175 btn-bermuda" href="@Url.Action("BlogPost","Blog",new { id = item.BlogId })">read more</a></div>
+                                            </div>
+                                        </section>
+                                    </article>
+                                </div>
+                            }
+                            @if (ViewBag.totalShop > 0)
+                            {
+
+                                <div class="text-center text-lg-left offset-top-75 offset-lg-top-90">
+                                    <!-- Classic Pagination-->
+                                    <nav>
+                                        <ul class="pagination-classic">
+
+                                            @{
+                                                int numberPage = ViewBag.numberPage;
+                                                int pageCurrent = ViewBag.pageCurrent;
+                                                if (pageCurrent > 1)
+                                                {
+                                                    int pagePage = pageCurrent - 1;
+
+                                                    <li><a class="icon icon-xs mdi mdi-arrow-left-bold" href="?page=@pagePage"></a></li>
+                                                }
+                                                else
+                                                {
+                                                    <li><a class="icon icon-xs icon-default mdi mdi-arrow-left-bold" href="#0"></a></li>
+                                                }
+
+                                                int i;
+                                                for (i = 1; i <= numberPage; i++)
+                                                {
+                                                    if (i == pageCurrent)
+                                                    {
+                                                        <li class="active"><a href="?page=@i">@i</a></li>
+                                                    }
+                                                    else
+                                                    {
+                                                        <li><a href="?page=@i">@i</a></li>
+                                                    }
+                                                }
+
+                                                if (pageCurrent >= 1 && pageCurrent < numberPage)
+                                                {
+                                                    int nextPage = pageCurrent + 1;
+
+                                                    <li><a class="icon icon-xs mdi mdi-arrow-right-bold" href="?page=@nextPage"></a></li>
+                                                }
+                                                else
+                                                {
+                                                    <li><a class="icon icon-xs icon-default mdi mdi-arrow-right-bold" href="#0"></a></li>
+                                                }
+                                            }
+                                        </ul>
+                                    </nav>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="col-md-10 col-lg-4 offset-top-60 offset-lg-top-0">
+                        <div class="inset-lg-left-30">
+                            <!-- Aside-->
+                            <aside class="text-left inset-xxl-right-50">
+                                <!-- Search the Blog-->
+                                <hr class="divider hr-left-0 bg-bermuda">
+                                <h5 class="offset-top-15">Search the Blog</h5>
+                                <div class="offset-top-25 rd-search-blog">
+                                    <!-- RD Search Form-->
+                                    <form class="search-form-1 form-search form-search-blog rd-search" action="@Url.Action("BlogClassic","Blog")" method="GET">
+                                        <div class="form-wrap">
+                                            <label class="form-label form-search-label" for="blog-classic-form-search-widget">Search...</label>
+                                            <input class="form-input form-search-input form-control null" id="blog-classic-form-search-widget" type="text" name="SearchString" autocomplete="off">
+                                        </div>
+                                        <div class="form-button">
+                                            <button class="btn btn-primary form-search-submit" type="submit">search</button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <!-- Categories-->
+                                <div class="offset-top-60 offset-lg-top-90">
+                                    <hr class="divider hr-left-0 bg-bermuda">
+                                    <h5 class="offset-top-15">Categories</h5>
+                                </div>
+                                <div class="offset-top-30">
+                                    <div class="inset-sm-left-8">
+                                        <!-- List Marked-->
+                                        <ul class="list list-marked list-marked-icon">
+                                            @foreach (var item in ViewBag.Category)
+                                            {
+                                                <li><a class="text-primary" href="@Url.Action("BlogClassic","Blog",new { cate = item.Cate_blog_id })">@item.name</a></li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </aside>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

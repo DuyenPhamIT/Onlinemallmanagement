@@ -1,0 +1,309 @@
+﻿
+@{
+    ViewBag.Title = "Directions";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Mapcss{
+    <link href="~/Content/client/css/map/magiczoomplus.css" rel="stylesheet" />
+    <link href="~/Content/client/css/map/style.css" rel="stylesheet" />
+    <style>
+        #google-map-derections {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+}
+@section Mapjs{
+    <script src="~/Content/client/js/Map/magiczoomplus.js"></script>
+    <script src="~/Content/client/js/Map/map.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+    <script>
+       
+        function initMap() {
+            var gps = '@ViewBag.GPS';
+            var gpsSplit = gps.split(',');
+            
+            var uluru = { lat: parseFloat(gpsSplit[0]), lng: parseFloat(gpsSplit[1]) };
+            var map = new google.maps.Map(document.getElementById('google-map-derections'), {
+                zoom: 18,
+                center: uluru
+            });
+
+            const contentString = "";
+
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString
+            });
+
+            var marker = new google.maps.Marker({
+                position: uluru,
+                map: map,
+                title: 'Address'
+            });
+            marker.addListener('click', function () {
+                infowindow.open(map, marker);
+            });
+        }
+
+        google.maps.event.addDomListener(window, 'load', initMap);
+    </script>
+}
+
+<!-- Breadcrumbs-->
+<section class="section-height-800 breadcrumb-modern parallax-container context-dark bg-gray-darkest d-none d-lg-block" data-parallax-img="@ViewBag.Banner.Image">
+    <div class="parallax-content">
+        <div class="bg-overlay-darker">
+            <div class="container-wide section-34 section-md-60 section-lg-top-130 section-lg-bottom-155">
+                <div class="d-none d-lg-block">
+                    <div class="h1 breadcrumbs-custom-title">@ViewBag.Banner.description</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section-34 bg-selago">
+    <div class="container">
+        <ul class="list-inline list-inline-12 list-inline-icon breadcrumbs-list">
+            <li><a href="/">Home</a></li>
+            <li><a href="#0">Pages</a></li>
+            <li class="active">Directions</li>
+        </ul>
+    </div>
+</section>
+<div class="page-content">
+    <!-- Directions-->
+    <section class="section-hidden text-left">
+        <div class="container-wide">
+            <div class="row justify-content-sm-center justify-content-xl-between">
+                <div class="col-md-10 col-xl-5 section-top-60 section-sm-bottom-60 section-lg-top-120 section-lg-bottom-120">
+                    <div class="inset-lg-left-10 inset-xl-left-45 inset-xxl-left-85">
+                        <!-- Unit-->
+                        <div class="unit flex-row unit-spacing-xs">
+                            <div class="unit-left"><span class="icon icon-lg icon-normal mdi mdi-car text-primary"></span></div>
+                            <div class="unit-body">
+                                <div class="offset-top-10">
+                                    <h5>By Car</h5>
+                                    <hr class="divider hr-left-0 bg-bermuda offset-top-15">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="offset-top-20">
+                            <p>If driving from the West, From the Gardiner Expressway East, exit at Bay St/York St exit and head north on Yonge. Parking is available at the Yonge & Shuter parkade, or the Bay & Dundas Parkade.</p>
+                            <p>If driving from the East, take the Don Valley Pkwy S. Exit toward Richmond Street/Downtown and take Richmond St. E to Yonge St. Parking. Please contact us if you need additional information on our location.</p>
+                        </div>
+                        <!-- Unit-->
+                        <div class="unit flex-row unit-spacing-xs offset-top-50">
+                            <div class="unit-left"><span class="icon icon-lg icon-normal mdi mdi-bus text-primary"></span></div>
+                            <div class="unit-body">
+                                <div class="offset-top-10">
+                                    <h5>By Coach</h5>
+                                    <hr class="divider hr-left-0 bg-bermuda offset-top-15">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="offset-top-20">
+                            <p>Audrey Mall is conveniently located one block from Toronto's main Bus Terminal. Bus transportation to other cities within North America is provided through several Intercity Bus companies operating out of this station. You can get more info from the San Diego Coach Terminal facilities.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-10 col-xl-6 offset-top-90 offset-md-top-0 rd-google-map-fullwidth-wrap inset-left-0 inset-right-0 inset-lg-left-15 inset-lg-right-15">
+                    <!-- Google Map-->
+                    <div id="google-map-derections">
+
+                    </div>
+                </div>
+            </div>
+            <div class="inset-lg-left-35 inset-xxl-left-125 inset-lg-right-35 inset-xxl-right-125">
+                <div class="branch" id="branch">
+                    <div class="container">
+                        <div style="margin-bottom: 40px; margin-top: 80px; ">
+                            <hr class="divider bg-bermuda">
+                            <div class="offset-top-20" style="text-align:center;">
+                                <h3>Mall Map</h3>
+                            </div>
+                        </div>
+                        <div class="branch-inner">
+                            <div class="branch-row">
+                                <div class="branch-content" data-toggle="branch1" data-content="1">
+
+                                    <div class="tab-body">
+                                        <div class="tab-body__inner">
+                                            <!--content for data-tab 2-->
+                                            <!--content for data-tab 2-->
+                                            <!--content for data-tab 2-->
+                                            <div class="tab-body__floor" data-toggle="floor" data-content="2">
+                                                <div class="branch-floor">
+                                                    <div class="branch-floor__tab">
+                                                        <div class="branch-floor__tab__map active" data-handle="floor-map" id="map">
+
+                                                            Map
+
+                                                        </div>
+                                                        <div class="branch-floor__tab__note" data-handle="floor-note" id="interpretation">
+
+                                                            Interpretation
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="branch-floor__content">
+                                                        <!--content for data-tab 3-->
+                                                        <div class="branch-floor__map" data-toggle="floor-map" id="imap" data-content="3">
+                                                            <div class="branch-floor__count">
+                                                                <div role="tab" class="branch-floor__num " id="f3">
+                                                                    F3
+                                                                </div>
+                                                                <div role="tab" id="f2" class="branch-floor__num ">
+                                                                    F2
+                                                                </div>
+                                                                <div role="tab" id="f1" class="branch-floor__num ">
+                                                                    F1
+                                                                </div>
+                                                                <div role="tab" id="g" class="branch-floor__num active">
+                                                                    G
+                                                                </div>
+                                                            </div>
+                                                            <div class="branch-floor__map__img" data-toggle="floor-3" id="f3i" data-content="4" style="display: none;">
+                                                                <a style="width: 700px;" href="https://www.aeon.com.vn/wp-content/uploads/2018/05/aeon-tan-phu-floor-3.png" class="MagicZoom" data-options="zoomMode: magnifier;cssClass: mz-square">
+                                                                    <img class="thumb" src="https://www.aeon.com.vn/wp-content/uploads/2018/05/aeon-tan-phu-floor-3.png" />
+                                                                </a>
+                                                            </div>
+                                                            <div class="branch-floor__map__img" data-toggle="floor-2" id="f2i" data-content="4" style="display: none;">
+                                                                <a style="width: 700px;" href="https://www.aeon.com.vn/wp-content/uploads/2018/05/aeon-tan-phu-floor-2.png" class="MagicZoom" data-options="zoomMode: magnifier;cssClass: mz-square">
+                                                                    <img class="thumb" src="https://www.aeon.com.vn/wp-content/uploads/2018/05/aeon-tan-phu-floor-2.png" />
+                                                                </a>
+                                                            </div>
+                                                            <div class="branch-floor__map__img" data-toggle="floor-1" id="f1i" data-content="4" style="display: none;">
+                                                                <a style="width: 700px;" href="https://www.aeon.com.vn/wp-content/uploads/2018/05/aeon-tan-phu-floor-1.png" class="MagicZoom" data-options="zoomMode: magnifier;cssClass: mz-square">
+                                                                    <img class="thumb" src="https://www.aeon.com.vn/wp-content/uploads/2018/05/aeon-tan-phu-floor-1.png" />
+                                                                </a>
+                                                            </div>
+                                                            <div class="branch-floor__map__img" data-toggle="floor-0" id="gi" data-content="4">
+                                                                <a style="width: 700px;" href="https://www.aeon.com.vn/wp-content/uploads/2018/05/aeon-tan-phu-floor-g.png" class="MagicZoom" data-options="zoomMode: magnifier;cssClass: mz-square"><img class="thumb" src="https://www.aeon.com.vn/wp-content/uploads/2018/05/aeon-tan-phu-floor-g.png" alt="" /></a>
+                                                            </div>
+                                                        </div>
+                                                        <!--content for data-tab 3-->
+                                                        <div id="slider" class="slider ">
+                                                            <div class="wrapper">
+                                                                <div id="items" class="items" style="left: -800px;">
+                                                                    <span class="slide">
+                                                                        <div class="swiper-slide" style="z-index:unset;">
+                                                                            <div class="swiper-slide__item">
+                                                                                <div class="branch-floor__note__item ">
+                                                                                    <div class="branch-floor__note__icon"><img src="https://www.aeon.com.vn/wp-content/uploads/2018/05/note_restroom.jpg" alt="" width="45" style="margin-right:10px;" /></div>
+                                                                                    <div class="branch-floor__note__content">
+                                                                                        <div class="branch-floor__note__vn">Restroom</div>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="branch-floor__note__item">
+                                                                                    <div class="branch-floor__note__icon"><img src="https://www.aeon.com.vn/wp-content/uploads/2018/05/note_escalator.jpg" alt="" width="45" style="margin-right:10px;" /></div>
+                                                                                    <div class="branch-floor__note__content">
+                                                                                        <div class="branch-floor__note__vn">Escalator</div>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="branch-floor__note__item">
+                                                                                    <div class="branch-floor__note__icon"><img src="https://www.aeon.com.vn/wp-content/uploads/2018/05/note_elevator.jpg" alt="" width="45" style="margin-right:10px;" /></div>
+                                                                                    <div class="branch-floor__note__content">
+                                                                                        <div class="branch-floor__note__vn">Elevator</div>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="branch-floor__note__item">
+                                                                                    <div class="branch-floor__note__icon"><img src="https://www.aeon.com.vn/wp-content/uploads/2018/05/note_handicapped_toilet.png" alt="" width="45" style="margin-right:10px;" /></div>
+                                                                                    <div class="branch-floor__note__content">
+                                                                                        <div class="branch-floor__note__vn">Handicapped toilet</div>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="branch-floor__note__item">
+                                                                                    <div class="branch-floor__note__icon"><img src="https://www.aeon.com.vn/wp-content/uploads/2018/05/note_way_for_pet.png" alt="" width="45" style="margin-right:10px;" /></div>
+                                                                                    <div class="branch-floor__note__content">
+                                                                                        <div class="branch-floor__note__vn">Way for pet</div>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="branch-floor__note__item">
+                                                                                    <div class="branch-floor__note__icon"><img src="https://www.aeon.com.vn/wp-content/uploads/2018/05/note_atm.png" alt="" width="45" style="margin-right:10px;" /></div>
+                                                                                    <div class="branch-floor__note__content">
+                                                                                        <div class="branch-floor__note__vn"> ATM</div>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="branch-floor__note__item">
+                                                                                    <div class="branch-floor__note__icon"><img src="https://www.aeon.com.vn/wp-content/uploads/2018/05/note_bank.png" alt="" width="45" style="margin-right:10px;" /></div>
+                                                                                    <div class="branch-floor__note__content">
+                                                                                        <div class="branch-floor__note__vn">Bank</div>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="branch-floor__note__item">
+                                                                                    <div class="branch-floor__note__icon"><img src="https://www.aeon.com.vn/wp-content/uploads/2018/05/note_information_counter.jpg" alt="" width="45" style="margin-right:10px;" /></div>
+                                                                                    <div class="branch-floor__note__content">
+                                                                                        <div class="branch-floor__note__vn">Information counter</div>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="branch-floor__note__item">
+                                                                                    <div class="branch-floor__note__icon"><img src="https://www.aeon.com.vn/wp-content/uploads/2018/05/note_up_coming.jpg" alt="" width="45" style="margin-right:10px;" /></div>
+                                                                                    <div class="branch-floor__note__content">
+                                                                                        <div class="branch-floor__note__vn">Up coming</div>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </span>
+                                                                    <span class="slide">
+                                                                        <div class="swiper-slide" style="z-index:unset;">
+                                                                            <div class="swiper-slide__item">
+                                                                                <div class="branch-floor__note__item">
+                                                                                    <div class="branch-floor__note__icon"><img src="https://www.aeon.com.vn/wp-content/uploads/2018/05/note_smoking_room.png" alt="" width="45" style="margin-right:10px;" /></div>
+                                                                                    <div class="branch-floor__note__content">
+                                                                                        <div class="branch-floor__note__vn">Smoking room</div>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="branch-floor__note__item">
+                                                                                    <div class="branch-floor__note__icon"><img src="https://www.aeon.com.vn/wp-content/uploads/2018/05/note_baby_room.png" alt="" width="45" style="margin-right:10px;" /></div>
+                                                                                    <div class="branch-floor__note__content">
+                                                                                        <div class="branch-floor__note__vn">Baby room</div>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </span>
+
+                                                                </div>
+                                                            </div>
+                                                            <!--   <a id="prev" class="control prev"></a>
+                                                            <a id="next" class="control next"></a> -->
+                                                            <ul class="slick-dots" style="" role="tablist">
+                                                                <li class="slick-active" role="presentation">
+                                                                    <button class="prev" type="button" role="tab" id="prev">1</button>
+                                                                </li>
+                                                                <li role="presentation">
+                                                                    <button type="button" class="next" role="tab" id="next">2</button>
+                                                                </li>
+                                                            </ul>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+

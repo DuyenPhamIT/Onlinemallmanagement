@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewBag.Title = "Shops";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var banner = ViewBag.Banner;
+}
+
+<!-- Breadcrumbs-->
+<section class="section-height-800 breadcrumb-modern parallax-container context-dark bg-gray-darkest d-none d-lg-block" data-parallax-img="@banner.Image">
+    <div class="parallax-content">
+        <div class="bg-overlay-darker">
+            <div class="container-wide section-34 section-md-60 section-lg-top-130 section-lg-bottom-155">
+                <div class="d-none d-lg-block">
+                    <div class="h1 breadcrumbs-custom-title">@banner.page</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section-34 bg-selago">
+    <div class="container">
+        <ul class="list-inline list-inline-12 list-inline-icon breadcrumbs-list">
+            <li><a href="/">Home</a></li>
+            <li><a href="#0">Services</a></li>
+            <li class="active">Shops</li>
+        </ul>
+    </div>
+</section>
+<div class="page-content section-60 section-md-120">
+    <!-- Shops-->
+    <section>
+        <div class="container-wide">
+            <div class="row justify-content-sm-center">
+                <div class="col-xxl-10">
+                    <div class="isotope-wrap">
+                        <div class="row">
+                            <!-- Isotope Filters-->
+                            <div class="col-xl-12 z-index-10">
+                                <div class="isotope-filters isotope-filters-horizontal">
+                                    <ul class="list-inline list-inline-sm d-lg-block inset-md-left-15 inset-md-right-15">
+                                        <li class="d-block d-sm-inline-block d-lg-none">
+                                            <p>Choose your category:</p>
+                                        </li>
+                                        <li class="section-relative offset-top-20 offset-sm-top-0 d-block d-sm-inline-block d-lg-block">
+                                            <button class="isotope-filters-toggle btn btn-primary-outline" data-custom-toggle="isotope-1" data-custom-toggle-disable-on-blur="true">Filter<span class="caret"></span></button>
+                                            <ul class="list-sm-inline isotope-filters-list d-lg-block" id="isotope-1">
+                                                <li><a class="active" data-isotope-filter="*" data-isotope-group="gallery" href="#">All Shops</a></li>
+                                                @foreach (var item in ViewBag.ShopFilter)
+                                                {
+                                                    <li><a data-isotope-filter="@item.ServiceName" data-isotope-group="gallery" href="#">@item.ServiceName</a></li>
+                                                }
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Isotope Content-->
+                            <div class="col-xl-12 offset-top-60">
+                                <div class="isotope isotope-modern" data-isotope-layout="fitRows" data-isotope-group="gallery">
+                                    <div class="row row-40" data-photo-swipe-gallery="gallery">
+                                        @foreach (var item in ViewBag.Shops)
+                                        {
+                                            <div class="col-12 col-md-6 col-lg-4 col-xl-3 isotope-item" data-filter="@item.Service.ServiceName">
+                                                <!-- Product-->
+                                                <div class="product thumbnail-robben thumbnail-robben-width-none">
+                                                    <a href="@Url.Action("ShopSingle","Service",new { id = item.ShoId })">
+                                                        <span class="thumbnail-robben-img-wrap">
+                                                            <img class="img-responsive center-block" src="@item.Photo" width="360" height="270" alt="shopPhoto">
+                                                        </span>
+                                                    </a>
+                                                    <div class="product-body inset-left-10 inset-right-10 offset-top-30">
+                                                        <a href="@Url.Action("ShopSingle","Service",new { id = item.ShoId })">
+                                                            <img class="img-semi-transparent-inverse" src="@item.Logo" width="109" height="100" alt="ShopLogo">
+                                                        </a>
+                                                        <div class="offset-top-20">
+                                                            <p>@item.Meta_description</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
